@@ -1,6 +1,6 @@
 class StateMachine:
     def __init__(self):
-        self.current_state = "OFF"
+        self._current_state = "OFF"
         self.previous_state = "OFF"
         self.success = False
         self.reason = ""
@@ -12,10 +12,13 @@ class StateMachine:
             "AUTO": ["IDLE", "E_STOP"],
             "E_STOP": ["IDLE"],
         }
+    @property
+    def current_state(self):
+        return self._current_state
 
     def _state_transition(self, requested_state):
         self.previous_state = self.current_state
-        self.current_state = requested_state
+        self._current_state = requested_state
 
 
     def request_transition(self, requested_state):
@@ -39,13 +42,13 @@ class StateMachine:
             "reason": self.reason,
         }
 
+if __name__ == "__main__":
+    atlas_state = StateMachine()
 
-atlas_state = StateMachine()
-
-print(atlas_state.request_transition("AUTO"))
-print(atlas_state.request_transition("IDLE"))
-print(atlas_state.request_transition("IDLE"))
-print(atlas_state.request_transition("MANUAL"))
-print(atlas_state.request_transition("AUTO"))
-print(atlas_state.request_transition("IDLE"))
-print(atlas_state.request_transition("E_STOP"))
+    print(atlas_state.request_transition("AUTO"))
+    print(atlas_state.request_transition("IDLE"))
+    print(atlas_state.request_transition("IDLE"))
+    print(atlas_state.request_transition("MANUAL"))
+    print(atlas_state.request_transition("AUTO"))
+    print(atlas_state.request_transition("IDLE"))
+    print(atlas_state.request_transition("E_STOP"))
