@@ -9,6 +9,7 @@ class MachineManager:
         self.mission_running = False
         self.mission = None
         self.state_machine = StateMachine()
+        self.safety_manager = SafetyManager()
         self.position = (0, 0, 0)  # x, y, z coordinates
    
 
