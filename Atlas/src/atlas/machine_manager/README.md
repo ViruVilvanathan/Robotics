@@ -2,12 +2,11 @@
 
 ## Purpose
 
-Describe what this subsystem is responsible for.
+Will act a system integrator to call on different subsystem to help Atlas function
 
 ## Responsibilities
 
-- Responsibility one
-- Responsibility two
-- Responsibility three
+- Atlas Actions
+
 
 ## Public Interface

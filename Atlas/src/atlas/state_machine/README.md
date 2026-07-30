@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Describe what this subsystem is responsible for.
+Validates and allows state transition
 
 ## Responsibilities
 
-- Responsibility one
-- Responsibility two
-- Responsibility three
+- Allow valid transitions
+- Block invalid transitions
 
 ## Public Interface
 
 ```python
 request_transition(requested_state)
 current_state
+```

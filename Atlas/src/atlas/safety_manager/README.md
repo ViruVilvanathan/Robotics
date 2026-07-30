@@ -2,12 +2,11 @@
 
 ## Purpose
 
-Describe what this subsystem is responsible for.
+Maintain safe behavior for Atlas
 
 ## Responsibilities
 
-- Responsibility one
-- Responsibility two
-- Responsibility three
+- Look for faults and unsafe behavior
 
 ## Public Interface
+- motion_allowed()
