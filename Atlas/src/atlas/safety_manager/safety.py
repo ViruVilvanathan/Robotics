@@ -34,4 +34,10 @@ class SafetyManager:
     def release_estop(self) -> None:
         self._estop_status = False
 
-    
+'''
+Atlas = SafetyManager()  # Singleton instance of SafetyManager
+print(Atlas.engage_estop())  # Engage E-stop for testing purposes
+print(Atlas.motion_allowed())  # Check if motion is allowed (should return False due to E-stop)
+print(Atlas.release_estop())  # Release E-stop
+print(Atlas.motion_allowed())  # Check if motion is allowed (should return True now)
+'''
