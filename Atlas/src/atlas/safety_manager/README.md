@@ -10,3 +10,6 @@ Maintain safe behavior for Atlas
 
 ## Public Interface
 - motion_allowed()
+- check_estop()
+- engage_estop()
+- release_estop()
