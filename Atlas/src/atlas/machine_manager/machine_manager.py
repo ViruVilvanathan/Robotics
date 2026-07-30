@@ -1,4 +1,5 @@
-from state_machine import StateMachine
+from atlas.state_machine.state_machine import StateMachine
+from atlas.safety_manager.safety import SafetyManager
 
 
 class MachineManager:

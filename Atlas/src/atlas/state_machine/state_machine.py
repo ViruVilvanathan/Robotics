@@ -1,16 +1,25 @@
+from enum import StrEnum
+
+class RobotState(StrEnum):
+    OFF = "OFF"
+    IDLE = "IDLE"
+    MANUAL = "MANUAL"
+    AUTO = "AUTO"       
+    E_STOP = "E_STOP"
+    
 class StateMachine:
     def __init__(self):
-        self._current_state = "OFF"
-        self.previous_state = "OFF"
+        self._current_state = RobotState.OFF
+        self.previous_state = RobotState.OFF
         self.success = False
         self.reason = ""
 
         self.allowed_transitions = {
-            "OFF": ["IDLE"],
-            "IDLE": ["MANUAL", "AUTO"],
-            "MANUAL": ["IDLE"],
-            "AUTO": ["IDLE", "E_STOP"],
-            "E_STOP": ["IDLE"],
+            RobotState.OFF: [RobotState.IDLE],
+            RobotState.IDLE: [RobotState.MANUAL, RobotState.AUTO],
+            RobotState.MANUAL: [RobotState.IDLE],
+            RobotState.AUTO: [RobotState.IDLE, RobotState.E_STOP],
+            RobotState.E_STOP: [RobotState.IDLE],
         }
     @property
     def current_state(self):
