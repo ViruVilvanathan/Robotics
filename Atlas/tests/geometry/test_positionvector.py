@@ -124,4 +124,11 @@ def test_distance_negative():
     distance = start.distance_to(end)
 
     assert distance == 5.0
-    
+
+def test_distance_with_floats_symmetry():
+    start = Position(1.5, 2.5)
+    end = Position(4.5, 6.5)
+
+    distance = start.distance_to(end)
+
+    assert distance == pytest.approx(end.distance_to(start))
