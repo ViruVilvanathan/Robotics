@@ -11,6 +11,10 @@ class Position:
     def vector_to(self, other: 'Position') -> 'Vector':
         return Vector(other.x - self.x, other.y - self.y)
 
+    def distance_to(self, other: 'Vector') -> float:
+        return self.vector_to(other).magnitude()
+
+
 class Vector:
     def __init__(self, x: float, y: float) -> None:
         self.x = x

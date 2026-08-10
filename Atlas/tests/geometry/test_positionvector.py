@@ -101,4 +101,27 @@ def test_displacement_zero():
     assert displacement.x == 0
     assert displacement.y == 0
 
+def test_distance():
+    start = Position(1, 2)
+    end = Position(4, 6)
 
+    distance = start.distance_to(end)
+
+    assert distance == 5.0
+
+def test_distance_zero():
+    start = Position(2, 3)
+    end = Position(2, 3)
+
+    distance = start.distance_to(end)
+
+    assert distance == 0.0
+
+def test_distance_negative():
+    start = Position(4, 6)
+    end = Position(1, 2)
+
+    distance = start.distance_to(end)
+
+    assert distance == 5.0
+    
