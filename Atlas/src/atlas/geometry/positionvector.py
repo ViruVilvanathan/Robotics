@@ -8,6 +8,9 @@ class Position:
     def __repr__(self) -> str:
         return f"Position(x={self.x}, y={self.y})"
 
+    def vector_to(self, other: 'Position') -> 'Vector':
+        return Vector(other.x - self.x, other.y - self.y)
+
 class Vector:
     def __init__(self, x: float, y: float) -> None:
         self.x = x

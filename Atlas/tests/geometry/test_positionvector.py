@@ -73,3 +73,32 @@ def test_zero_vector_cannot_be_normalized():
 
     with pytest.raises(ValueError):
         vector.normalized()
+
+def test_displacement():
+    start = Position(1, 2)
+    end = Position(4, 6)
+
+    displacement = start.vector_to(end)
+
+    assert displacement.x == 3
+    assert displacement.y == 4
+
+def test_displacement_negative():
+    start = Position(4, 6)
+    end = Position(1, 2)
+
+    displacement = start.vector_to(end)
+
+    assert displacement.x == -3
+    assert displacement.y == -4
+
+def test_displacement_zero():
+    start = Position(2, 3)
+    end = Position(2, 3)
+
+    displacement = start.vector_to(end)
+
+    assert displacement.x == 0
+    assert displacement.y == 0
+
+
