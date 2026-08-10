@@ -132,3 +132,17 @@ def test_distance_with_floats_symmetry():
     distance = start.distance_to(end)
 
     assert distance == pytest.approx(end.distance_to(start))
+
+Vectordata = [
+    [Vector(3, 4), Vector(-4, 3), 0],
+    [Vector(3, 4), Vector(-3, 4), 7],
+    [Vector(3, 4), Vector(0, 0), 0],
+]
+
+@pytest.mark.parametrize("vector1, vector2, expected", Vectordata)
+
+def test_dot_product(vector1, vector2, expected):
+
+    dot_product = vector1.dot(vector2)
+
+    assert dot_product == expected

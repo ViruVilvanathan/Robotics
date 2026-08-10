@@ -36,3 +36,6 @@ class Vector:
         self.x / magnitude,
         self.y / magnitude,
         )
+    def dot(self, other: 'Vector') -> float:
+        return self.x * other.x + self.y * other.y
+
