@@ -17,3 +17,18 @@ def test_world_to_body_with_yaw():
     assert pytest.approx(result.x) == 2
     assert pytest.approx(result.y) == -5
     assert pytest.approx(result.z) == 3
+
+def test_pose_transform():
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi / 4)
+    pose = Pose(position, orientation)
+
+    expected_transform = np.array([
+        [np.cos(np.pi / 4), -np.sin(np.pi / 4), 0, 1],
+        [np.sin(np.pi / 4), np.cos(np.pi / 4), 0, 2],
+        [0, 0, 1, 3],
+        [0, 0, 0, 1]
+    ])
+
+    assert np.allclose(pose.pose_transform(), expected_transform)
+    

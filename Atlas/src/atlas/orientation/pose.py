@@ -25,3 +25,10 @@ class Pose:
             v_body[1],
             v_body[2]
         )
+
+    def pose_transform(self) -> np.ndarray:
+        """Returns the 4x4 transformation matrix representing the pose."""
+        transformation_matrix = np.eye(4)
+        transformation_matrix[:3, :3] = self.orientation.rotation_matrix
+        transformation_matrix[:3, 3] = [self.position.x, self.position.y, self.position.z]
+        return transformation_matrix
