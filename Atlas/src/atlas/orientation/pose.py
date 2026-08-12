@@ -32,3 +32,22 @@ class Pose:
         transformation_matrix[:3, :3] = self.orientation.rotation_matrix
         transformation_matrix[:3, 3] = [self.position.x, self.position.y, self.position.z]
         return transformation_matrix
+
+    def inverse_pose_transform(self) -> np.ndarray:
+        R = self.orientation.rotation_matrix
+
+        t = np.array([
+            self.position.x,
+            self.position.y,
+            self.position.z
+        ])
+
+        R_inv = R.T
+
+        t_inv = -R_inv @ t
+
+        transformation_matrix = np.eye(4)
+        transformation_matrix[:3, :3] = R_inv
+        transformation_matrix[:3, 3] = t_inv
+
+        return transformation_matrix

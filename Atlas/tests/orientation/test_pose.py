@@ -31,4 +31,17 @@ def test_pose_transform():
     ])
 
     assert np.allclose(pose.pose_transform(), expected_transform)
+
+def test_inverse_pose_transform():
+    pose = Pose(
+        Position(1, 2, 3),
+        Rotation()
+        )
+
+    Tinv = pose.inverse_pose_transform()
+
+    assert np.allclose(Tinv @ pose.pose_transform(), np.eye(4))
+    assert np.allclose(Tinv[:3, :3], np.eye(3))
+    assert np.allclose(Tinv[:3, 3], [-1, -2, -3])
+
     
