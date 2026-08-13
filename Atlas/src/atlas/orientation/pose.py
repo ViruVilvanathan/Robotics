@@ -73,3 +73,25 @@ class Pose:
         )
 
         return object_position_world
+
+    def point_pose_world_to_bodyframe(self, point_position_world: Position) -> Position:
+        #Given a point's position in the world frame, compute its position in the body frame.
+        # Convert the point's position in the world frame to a homogenous vector
+        point_vector_world = np.array([
+            point_position_world.x,
+            point_position_world.y,
+            point_position_world.z,
+            1
+        ])
+
+        # Apply the inverse transformation to get the point's position in the body frame
+        point_vector_body = self.inverse_pose_transform_world_to_body() @ point_vector_world
+
+        # Create a Position object for the point in the body frame
+        point_position_body = Position(
+            point_vector_body[0],
+            point_vector_body[1],
+            point_vector_body[2]
+        )
+
+        return point_position_body

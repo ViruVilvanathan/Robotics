@@ -77,3 +77,24 @@ def test_object_inworld_wrtbody():
     assert object_position_world.x == pytest.approx(1)
     assert object_position_world.y == pytest.approx(3)
     assert object_position_world.z == pytest.approx(3)
+
+def test_point_fromworldtobody():
+
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi/2)
+    pose = Pose(position, orientation)
+    point_position_world = Position(1, 3, 3)
+
+    point_position_body = pose.point_pose_world_to_bodyframe(point_position_world)
+
+    assert point_position_body.x == pytest.approx(1)
+    assert point_position_body.y == pytest.approx(0)
+    assert point_position_body.z == pytest.approx(0)
+
+    #assert that the transform of the point_position_bodyframe back to world frame gives the original point_position_world
+    point_pose_bodytoworld = pose.object_pose_world_from_bodyframe(point_position_body)
+
+    assert point_pose_bodytoworld.x == pytest.approx(point_position_world.x)
+    assert point_pose_bodytoworld.y == pytest.approx(point_position_world.y)    
+    assert point_pose_bodytoworld.z == pytest.approx(point_position_world.z)
+
