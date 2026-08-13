@@ -26,14 +26,14 @@ class Pose:
             v_body[2]
         )
 
-    def pose_transform(self) -> np.ndarray:
+    def pose_transform_body_to_world(self) -> np.ndarray:
         """Returns the 4x4 transformation matrix representing the pose."""
         transformation_matrix = np.eye(4)
         transformation_matrix[:3, :3] = self.orientation.rotation_matrix
         transformation_matrix[:3, 3] = [self.position.x, self.position.y, self.position.z]
         return transformation_matrix
 
-    def inverse_pose_transform(self) -> np.ndarray:
+    def inverse_pose_transform_world_to_body(self) -> np.ndarray:
         R = self.orientation.rotation_matrix
 
         t = np.array([
@@ -49,5 +49,26 @@ class Pose:
         transformation_matrix = np.eye(4)
         transformation_matrix[:3, :3] = R_inv
         transformation_matrix[:3, 3] = t_inv
-
+        #returns the 4x4 matrix representing the inverse pose transformation from world to body frame
         return transformation_matrix
+
+    def object_pose_world_from_bodyframe(self, object_position_body: Position) -> Position:
+        """Given an object's position in the body frame, compute its position in the world frame."""
+        # Convert the object's position in the body frame to a vector
+        object_vector_body = np.array([
+            object_position_body.x,
+            object_position_body.y,
+            object_position_body.z
+        ])
+
+        # Rotate the vector to the world frame
+        object_vector_world = self.orientation.rotation_matrix @ object_vector_body
+
+        # Translate to get the object's position in the world frame
+        object_position_world = Position(
+            self.position.x + object_vector_world[0],
+            self.position.y + object_vector_world[1],
+            self.position.z + object_vector_world[2]
+        )
+
+        return object_position_world

@@ -30,7 +30,7 @@ def test_pose_transform():
         [0, 0, 0, 1]
     ])
 
-    assert np.allclose(pose.pose_transform(), expected_transform)
+    assert np.allclose(pose.pose_transform_body_to_world(), expected_transform)
 
 def test_inverse_pose_transform():
     pose = Pose(
@@ -38,10 +38,42 @@ def test_inverse_pose_transform():
         Rotation()
         )
 
-    Tinv = pose.inverse_pose_transform()
+    Tinv = pose.inverse_pose_transform_world_to_body()
 
-    assert np.allclose(Tinv @ pose.pose_transform(), np.eye(4))
+    assert np.allclose(Tinv @ pose.pose_transform_body_to_world(), np.eye(4))
     assert np.allclose(Tinv[:3, :3], np.eye(3))
     assert np.allclose(Tinv[:3, 3], [-1, -2, -3])
 
-    
+def test_pose_function():
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi / 4)
+    pose = Pose(position, orientation)
+    goal = Position(4, 5, 6)
+
+    v = pose.world_to_body(goal)
+
+    goal_h = np.array([
+        goal.x,
+        goal.y,
+        goal.z,
+        1
+    ])
+
+    v_homo = pose.inverse_pose_transform_world_to_body() @ goal_h
+
+    expected = np.array([v.x, v.y, v.z])
+
+    assert np.allclose(v_homo[:3], expected)
+
+def test_object_inworld_wrtbody():
+
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi/2)
+    pose = Pose(position, orientation)
+    object_position_body = Position(1, 0, 0)
+
+    object_position_world = pose.object_pose_world_from_bodyframe(object_position_body)
+
+    assert object_position_world.x == pytest.approx(1)
+    assert object_position_world.y == pytest.approx(3)
+    assert object_position_world.z == pytest.approx(3)
