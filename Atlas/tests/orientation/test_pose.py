@@ -116,12 +116,12 @@ def test_worldvector_to_bodyvector():
     orientation = Rotation.rotation_z(np.pi/2)
     pose = Pose(position, orientation)
 
-    world_vector = Vector(0, 1, 0)
+    world_vector = Vector(1, 1, 0)
 
     body_vector = pose.world_vector_to_body(world_vector)
 
     assert body_vector.x == pytest.approx(1)
-    assert body_vector.y == pytest.approx(0)
+    assert body_vector.y == pytest.approx(-1)
     assert body_vector.z == pytest.approx(0)
 
     assert np.allclose(pose.body_vector_to_world(body_vector).x, world_vector.x)
