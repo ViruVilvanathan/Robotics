@@ -124,3 +124,7 @@ def test_worldvector_to_bodyvector():
     assert body_vector.y == pytest.approx(0)
     assert body_vector.z == pytest.approx(0)
 
+    assert np.allclose(pose.body_vector_to_world(body_vector).x, world_vector.x)
+    assert np.allclose(pose.body_vector_to_world(body_vector).y, world_vector.y)
+    assert np.allclose(pose.body_vector_to_world(body_vector).z, world_vector.z)
+
