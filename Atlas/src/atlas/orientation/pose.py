@@ -95,3 +95,29 @@ class Pose:
         )
 
         return point_position_body
+
+    def body_vector_to_world(self, body_vector: Vector) -> Vector:
+        # Convert the body vector to a numpy array
+        body_vector_np = np.array([body_vector.x, body_vector.y, body_vector.z, 0])  # Homogeneous coordinates for vector
+
+        # Rotate the vector to the world frame
+        world_vector_np = self.pose_transform_body_to_world() @ body_vector_np
+
+        # Create a new Vector object for the world vector
+        world_vector = Vector(world_vector_np[0], world_vector_np[1], world_vector_np[2])
+
+        return world_vector
+
+    def world_vector_to_body(self, world_vector: Vector) -> Vector:
+        # Convert the world vector to a numpy array
+        world_vector_np = np.array([world_vector.x, world_vector.y, world_vector.z, 0])  # Homogeneous coordinates for vector
+
+        # Apply the inverse transformation to get the vector in the body frame
+        body_vector_np = self.inverse_pose_transform_world_to_body() @ world_vector_np
+
+        # Create a new Vector object for the body vector
+        body_vector = Vector(body_vector_np[0], body_vector_np[1], body_vector_np[2])
+
+        return body_vector
+
+    

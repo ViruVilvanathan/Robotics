@@ -98,3 +98,29 @@ def test_point_fromworldtobody():
     assert point_pose_bodytoworld.y == pytest.approx(point_position_world.y)    
     assert point_pose_bodytoworld.z == pytest.approx(point_position_world.z)
 
+def test_bodyvector_to_worldvector():
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi/2)
+    pose = Pose(position, orientation)
+
+    body_vector = Vector(1, 0, 0)
+
+    world_vector = pose.body_vector_to_world(body_vector)
+
+    assert world_vector.x == pytest.approx(0)
+    assert world_vector.y == pytest.approx(1)
+    assert world_vector.z == pytest.approx(0)
+
+def test_worldvector_to_bodyvector():
+    position = Position(1, 2, 3)
+    orientation = Rotation.rotation_z(np.pi/2)
+    pose = Pose(position, orientation)
+
+    world_vector = Vector(0, 1, 0)
+
+    body_vector = pose.world_vector_to_body(world_vector)
+
+    assert body_vector.x == pytest.approx(1)
+    assert body_vector.y == pytest.approx(0)
+    assert body_vector.z == pytest.approx(0)
+
