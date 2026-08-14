@@ -26,4 +26,3 @@ class MotionUpdate:
         new_orientation = self.orientation.rotate_body('z', delta_theta)
 
         return Pose(new_position, new_orientation)
-
