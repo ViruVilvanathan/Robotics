@@ -12,15 +12,15 @@ def test_linearpcontroller():
     controller = GoToGoalController(kv, kw)
 
     # Define the current pose of the robot
-    current_pose = Pose(Position(0,0,0), Rotation())  # Facing along the x-axis
+    current_pose = Pose(Position(0,0,0), Rotation().rotate_body('z', np.pi/2))  # Facing along the y-axis
     # Define the goal position
-    goal_position = Position(3, 4, 0)
+    goal_position = Position(3, 0, 0)
 
     # Call the linearpcontroller method
     linear_velocity_vector, angular_velocity = controller.linearpcontroller(current_pose, goal_position)
 
     # Assertions to check if the computed velocities match the expected values
-    assert np.isclose(linear_velocity_vector.x, 2.5)
+    assert np.isclose(linear_velocity_vector.x, 1.5)
     assert np.isclose(linear_velocity_vector.y, 0)
     assert np.isclose(linear_velocity_vector.z, 0)
-    assert np.isclose(angular_velocity, 0.9273)
+    assert np.isclose(angular_velocity, -np.pi/2)  # The robot needs to turn -90 degrees to face the goal
