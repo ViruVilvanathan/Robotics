@@ -4,7 +4,7 @@
 
 ## The problem
 
-Given a cropped egocentric hand image, estimate the locations of **21 anatomical keypoints**. The experiment uses a subset of the Ego-Exo4D dataset and a top-down pipeline: hand crops are provided, then a model predicts one heatmap per joint. This is **pose estimation, not a hand-detector benchmark**.
+Given a cropped egocentric hand image, estimate the locations of **21 anatomical keypoints**. The experiment uses a subset of the Ego-Exo4D dataset and a top-down pipeline: a model predicts one heatmap per joint from a provided hand crop. Hand detection is outside the scope of this experiment.
 
 ## Mathematical formulation
 
@@ -14,17 +14,17 @@ For input image $I$, the convolutional network $f_\theta$ predicts heatmaps $\ha
 \hat{\mathbf p}_j=\underset{(x,y)}{\mathrm{argmax}}\;\hat H_j(x,y).
 ```
 
-The training objective compares predicted heatmaps with target heatmaps, with visibility-aware supervision as defined in the supplied course pipeline. The numerical loss below is **heatmap loss**, not a distance in pixels.
+The training objective compares predicted heatmaps with target heatmaps, using visibility-aware supervision. The numerical loss below is **heatmap loss**, not a distance in pixels.
 
-## Recorded experiment
+## Experiment
 
-| Measurement | Recorded value |
+| Measurement | Value |
 |---|---:|
 | Training samples | **20,998** |
 | Validation samples | **5,911** |
 | Test samples | **7,813** |
 | Training epochs | **20** |
-| Model output tensor (shape test) | **1 × 21 × 112 × 112** |
+| Model output tensor | **1 × 21 × 112 × 112** |
 | Initial validation loss | **0.99048** |
 | Best validation loss | **0.66080** (epoch 12, 1-indexed) |
 | Final validation loss | **0.66929** |
@@ -32,17 +32,17 @@ The training objective compares predicted heatmaps with target heatmaps, with vi
 
 ![Training and validation heatmap loss across 20 epochs](assets/training-curve.svg)
 
-The validation curve is not monotonic; the lowest recorded validation loss occurred before the final epoch. A pretrained-weight loading step was also recorded in the notebook; results should **not** be described as training from scratch.
+The model was initialized with pretrained weights. Validation loss reached its minimum at epoch 12, then finished slightly higher at epoch 20.
 
 ### Example keypoint errors
 
-The notebook printed Euclidean pixel errors for **four visible joints on one selected test example**: **1.4 px, 2.2 px, 3.0 px, and 1.0 px** (joint indices 0, 8, 12, 16). Their arithmetic mean is **1.9 px for these four selected joints only**. This is **not** an aggregate test-set score or a validated model benchmark. Two other queried joints had no printed error in that sample.
+Four visible joints on one selected test image had Euclidean errors of **1.4, 2.2, 3.0, and 1.0 pixels** (joint indices 0, 8, 12, and 16). Their mean error was **1.9 pixels**. These values describe those four joints only, rather than the full test set.
 
 ## Visual results
 
-### Input and annotated example
+### Hand-pose example
 
-![Hand-pose example from the recorded notebook](assets/handpose_cell21_0.webp)
+![Hand-pose example](assets/handpose_cell21_0.webp)
 
 ### Ground truth and model prediction
 
@@ -50,18 +50,11 @@ The notebook printed Euclidean pixel errors for **four visible joints on one sel
 |---|---|
 | ![Ground truth hand keypoints](assets/handpose_cell22_0.webp) | ![Predicted hand keypoints](assets/handpose_cell22_1.webp) |
 
-These selected qualitative examples complement the recorded loss curve; they do not establish aggregate test-set accuracy.
+These examples show predicted joint structure alongside the reference annotations.
 
-## Interpretation and limitations
+## Evaluation and limitations
 
-- The loss improvement documents optimization progress, not a 33.3% increase in pose accuracy.
-- Dataset annotations may contain missing or imperfect labels, as noted in the project material.
-- The reported sample errors do not establish performance across subjects, activities, or the full test split.
-- No independently verified PCK, normalized keypoint error, or end-to-end hand detection score is available from the inspected artifacts.
-- Only the selected result figures are shown. Instructor scaffolding, source code, notebooks, model weights, and dataset files are excluded.
-
-## Provenance
-
-Source: uploaded executed notebook **Fall2026_Viru_Vilvanathan_Project7.ipynb** and associated PDF reflection report. All numeric results above were transcribed from saved notebook outputs, not produced by a new training run. Chart is a faithful plot of recorded per-epoch losses.
+- Validation heatmap loss fell **33.3%** from its initial value to its best value. This measures the training objective, rather than a percentage gain in keypoint accuracy.
+- Aggregate test-set keypoint accuracy, PCK, and normalized keypoint error have not been measured. The selected image does not establish generalization across subjects or activities.
 
 [← Machine Learning](../README.md) · [Portfolio index](../../SHOWCASE.md)

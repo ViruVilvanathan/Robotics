@@ -22,15 +22,15 @@ The Euler–Lagrange condition gives the Poisson equation:
 
 On a four-neighbor pixel grid, the reconstruction becomes a sparse linear system $A\mathbf f=\mathbf b$.
 
-## Three recorded editing variants
+## Editing methods
 
-| Variant | Gradient strategy | Submitted output |
-|---|---|---|
-| **Seamless cloning** | Prefer source gradients within the selected region, constrained by destination boundary | **cloned.png** |
-| **Mixed-gradient editing** | Choose source or destination gradient with larger magnitude at each neighbor relation | **mixed.png** |
-| **Texture flattening** | Suppress gradients away from retained edges | **flatten.png** |
+| Variant | Gradient strategy |
+|---|---|
+| **Seamless cloning** | Prefer source gradients within the selected region, constrained by destination boundary |
+| **Mixed-gradient editing** | Choose source or destination gradient with larger magnitude at each neighbor relation |
+| **Texture flattening** | Suppress gradients away from retained edges |
 
-The submitted notebook includes output images for all three methods. **No PSNR, SSIM, or quantitative perceptual benchmark was recorded**, and no numerical quality score is invented.
+The results compare seamless cloning, mixed-gradient editing, and texture flattening qualitatively. PSNR and SSIM were not measured.
 
 ## Visual results
 
@@ -51,9 +51,5 @@ The submitted notebook includes output images for all three methods. **No PSNR, 
 - **Seamless cloning:** transfers an object while accommodating destination illumination and boundary colors.
 - **Mixed gradients:** retains strong edges from either image, potentially preserving important scene structure.
 - **Texture flattening:** reduces small texture variations while keeping selected salient edges.
-
-## Evidence and publication boundary
-
-Source: uploaded **Fall_2026_CIS5180_Virupakshan_Vilvanathan.ipynb** (filename as submitted), with the three output PNGs. Course affiliation is described as CIS 5810 based on the project context; the notebook filename itself says CIS5180. Only the three selected result images are published here. Instructor-provided code, assignment notebooks, and dataset files are excluded.
 
 [← Computer Vision](../README.md) · [Portfolio index](../../SHOWCASE.md)

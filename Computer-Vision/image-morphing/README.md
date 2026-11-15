@@ -22,19 +22,11 @@ I_t(\mathbf x)=(1-t)I_A(W_A^{-1}(\mathbf x,t))+tI_B(W_B^{-1}(\mathbf x,t)).
 
 This separates **geometric alignment** from **cross-dissolve**; blending without warping would produce ghosting rather than a shape transition.
 
-## Recorded results
+## Results
 
-| Evidence | Observation |
-|---|---|
-| Notebook test section | **3/3 tests passed** (as printed by notebook) |
-| Animated outputs | **custom1.gif**, **custom2.gif**, **output.gif** supplied |
-| Qualitative result | Generated face-morph animations and intermediate rendered images |
+Three animations demonstrate transitions in landmark geometry and appearance. **3/3 project checks passed in the recorded run.** Image quality is evaluated visually; no quantitative image-quality benchmark was measured.
 
-The three passing tests are notebook-reported, not an independently rerun test suite. No pixel-error benchmark, frame rate, or user-study metric is recorded.
-
-## Visual presentation
-
-### Recorded morph
+### Face morph
 
 ![Original morphing animation](assets/output.gif)
 
@@ -45,7 +37,5 @@ The three passing tests are notebook-reported, not an independently rerun test s
 ### Custom morph 2
 
 ![Second custom morphing animation](assets/custom2.gif)
-
-The original GIFs retain all recorded animation frames. Source code, notebooks, and dataset files are excluded.
 
 [← Computer Vision](../README.md) · [Portfolio index](../../SHOWCASE.md)

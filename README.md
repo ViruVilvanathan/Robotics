@@ -5,4 +5,4 @@ Atlas robotics engineering and selected machine learning and computer vision res
 - [Atlas](Atlas/) — robotics platform.
 - [Machine Learning](Machine-Learning/README.md) — hand pose estimation, recorded training metrics, and model predictions.
 - [Computer Vision](Computer-Vision/README.md) — homography, animated image morphs, and Poisson editing results.
-- [Project showcase](SHOWCASE.md) — mathematical foundations, evidence, and limitations.
+- [Project showcase](SHOWCASE.md) — methods, mathematical foundations, results, and limitations.

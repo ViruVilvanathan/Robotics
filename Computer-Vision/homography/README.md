@@ -20,13 +20,9 @@ Because scale is arbitrary, $H$ has eight degrees of freedom. At least four nond
 e_i=\left\|\mathbf x'_i-\pi(H\tilde{\mathbf x}_i)\right\|_2.
 ```
 
-Here $\pi$ denotes homogeneous normalization. The notebook demonstrates correspondence visualization, image stitching, and perspective correction; **no aggregate reprojection-error measurement is recorded** in the supplied artifacts.
+Here $\pi$ denotes homogeneous normalization. The results below show point correspondences, perspective correction, and image stitching.
 
-## Verified result artifacts
-
-- **correspondence_image.png** — matched feature-point visualization
-- **stitched_view_image.png** — stitched-view result
-- **corrected_view_image.png** — perspective-corrected view
+## Results
 
 ### Point correspondences
 
@@ -40,10 +36,8 @@ Here $\pi$ denotes homogeneous normalization. The notebook demonstrates correspo
 
 ![Stitched view](assets/stitched_view_image.png)
 
-These are the supplied result images, preserved without modification. Source code, notebooks, and dataset files are excluded.
+## Evaluation
 
-## Verification notes
-
-The notebook contains saved visual outputs. An earlier cell recorded an interrupted execution, so the full notebook has **not** been certified as a clean end-to-end rerun. No numerical registration accuracy or runtime is claimed.
+Results are evaluated visually. Aggregate reprojection error and runtime were not measured.
 
 [← Computer Vision](../README.md) · [Portfolio index](../../SHOWCASE.md)
