@@ -1,0 +1,16 @@
+{
+  "dt": 0.1,
+  "goal_tolerance": 0.15,
+  "map": {
+    "width": 12,
+    "height": 9,
+    "obstacles": [
+      {"type": "rectangle", "x": 5, "y": 3, "width": 1, "height": 2},
+      {"type": "circle", "x": 8, "y": 6, "radius": 0.7}
+    ]
+  },
+  "robots": [
+    {"name": "atlas-1", "start": [1, 1], "goal": [4, 2], "heading": 0, "radius": 0.2},
+    {"name": "atlas-2", "start": [2, 7], "goal": [9, 7], "heading": 0, "radius": 0.2}
+  ]
+}

@@ -1,0 +1,20 @@
+name: Atlas tests
+on:
+  push:
+    paths: ["Atlas/**", ".github/workflows/atlas-tests.yml"]
+  pull_request:
+    paths: ["Atlas/**", ".github/workflows/atlas-tests.yml"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Atlas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e '.[dev]'
+      - run: python -m pytest -v
+      - run: python -m atlas.sim.cli --config examples/two_robots.json --headless --steps 10
