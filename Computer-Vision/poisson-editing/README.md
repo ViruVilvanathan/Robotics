@@ -28,6 +28,20 @@ On a four-neighbor pixel grid, the reconstruction becomes a sparse linear system
 
 The submitted notebook includes output images for all three methods. **No PSNR, SSIM, or quantitative perceptual benchmark was recorded**, and no numerical quality score is invented.
 
+## Visual results
+
+### Seamless cloning
+
+![Seamless cloning result](assets/cloned.png)
+
+### Mixed gradients
+
+![Mixed-gradient editing result](assets/mixed.png)
+
+### Texture flattening
+
+![Texture flattening result](assets/flatten.png)
+
 ## Why the variants matter
 
 - **Seamless cloning:** transfers an object while accommodating destination illumination and boundary colors.
@@ -36,6 +50,6 @@ The submitted notebook includes output images for all three methods. **No PSNR, 
 
 ## Evidence and publication boundary
 
-Source: uploaded **Fall_2026_CIS5180_Virupakshan_Vilvanathan.ipynb** (filename as submitted), with the three output PNGs. Course affiliation is described as CIS 5810 based on the project context; the notebook filename itself says CIS5180. Instructor-provided code and original result images are withheld from this public documentation pending permission checks.
+Source: uploaded **Fall_2026_CIS5180_Virupakshan_Vilvanathan.ipynb** (filename as submitted), with the three output PNGs. Course affiliation is described as CIS 5810 based on the project context; the notebook filename itself says CIS5180. Only the three selected result images are published here. Instructor-provided code, assignment notebooks, and dataset files are excluded.
 
 [← Computer Vision](../README.md) · [Portfolio index](../../SHOWCASE.md)
