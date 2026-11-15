@@ -10,9 +10,9 @@ Given a cropped egocentric hand image, estimate the locations of **21 anatomical
 
 For input image $I$, the convolutional network $f_\theta$ predicts heatmaps $\hat H=f_\theta(I)\in\mathbb R^{21\times112\times112}$. A joint coordinate is estimated by the heatmap maximum:
 
-$$
-\hat{\mathbf p}_j=\underset{(x,y)}{\mathrm{argmax}}\hat H_j(x,y).
-$$
+```math
+\hat{\mathbf p}_j=\underset{(x,y)}{\mathrm{argmax}}\;\hat H_j(x,y).
+```
 
 The training objective compares predicted heatmaps with target heatmaps, with visibility-aware supervision as defined in the supplied course pipeline. The numerical loss below is **heatmap loss**, not a distance in pixels.
 
