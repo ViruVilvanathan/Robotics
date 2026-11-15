@@ -24,7 +24,19 @@ Here \(\pi\) denotes homogeneous normalization. The notebook demonstrates corres
 - **stitched_view_image.png** — stitched-view result
 - **corrected_view_image.png** — perspective-corrected view
 
-The images were supplied alongside the completed notebook and reviewed as named outputs; they are not redistributed here pending image and course-material clearance.
+### Point correspondences
+
+![Matched point correspondences](assets/correspondence_image.png)
+
+### Perspective correction
+
+![Perspective-corrected view](assets/corrected_view_image.png)
+
+### Image stitching
+
+![Stitched view](assets/stitched_view_image.png)
+
+These are the supplied result images, preserved without modification. Source code, notebooks, and dataset files are excluded.
 
 ## Verification notes
 
