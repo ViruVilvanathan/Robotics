@@ -1,9 +1,9 @@
 name: Atlas tests
 on:
   push:
-    paths: ["Atlas/**"]
+    paths: ["Atlas/**", ".github/workflows/atlas-tests.yml"]
   pull_request:
-    paths: ["Atlas/**"]
+    paths: ["Atlas/**", ".github/workflows/atlas-tests.yml"]
 jobs:
   test:
     runs-on: ubuntu-latest
