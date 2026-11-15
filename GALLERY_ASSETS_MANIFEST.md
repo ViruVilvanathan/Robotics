@@ -1,15 +1,20 @@
 # Results gallery · publication manifest
 
-The showcase has been staged as a draft pull request. The accompanying original-image gallery is packaged separately for review because this GitHub connection cannot upload the binary PNG, WebP and GIF files from the local working directory.
+All 12 original result images and GIFs from `ML_Computer_Vision_Showcase.zip` are uploaded on `showcase/ml-computer-vision-results`, preserving the original project and asset paths.
 
-| Project | Original results prepared for upload | Status on GitHub |
+| Project | Published assets | Verification |
 |---|---|---|
-| Hand pose | `handpose_cell21_0.webp`, `handpose_cell22_0.webp`, `handpose_cell22_1.webp` | **Not yet uploaded** |
-| Homography | `correspondence_image.png`, `corrected_view_image.png`, `stitched_view_image.png` | **Not yet uploaded** |
-| Image morphing | `custom1.gif`, `custom2.gif`, `output.gif` | **Not yet uploaded** |
-| Poisson editing | `cloned.png`, `mixed.png`, `flatten.png` | **Not yet uploaded** |
-| Hand pose loss chart | [training-curve.svg](Machine-Learning/hand-pose-estimation/assets/training-curve.svg) | **Uploaded** |
+| Hand pose | `handpose_cell21_0.webp`, `handpose_cell22_0.webp`, `handpose_cell22_1.webp` | All three render in the project README |
+| Homography | `correspondence_image.png`, `corrected_view_image.png`, `stitched_view_image.png` | All three render in the project README |
+| Image morphing | `custom1.gif`, `custom2.gif`, `output.gif` | All three load in GitHub's animation viewer |
+| Poisson editing | `cloned.png`, `mixed.png`, `flatten.png` | All three render in the project README |
+| Hand pose loss chart | `training-curve.svg` | Renders in both ML READMEs |
 
-The full original-result gallery ZIP is available as a conversation attachment, **ML_Computer_Vision_Showcase.zip**. To publish it, upload the files preserving their `Machine-Learning/` and `Computer-Vision/` directory paths, then update the project READMEs to embed the images.
+## Verification
 
-**No instructor-provided source code or assignment notebooks are included.** Verify third-party image/dataset rights before public redistribution.
+- Git blob hashes match the ZIP originals for all 12 binary assets; uploads are byte-for-byte unchanged.
+- Original GIFs retain 45 frames (`custom1.gif`), 30 frames (`custom2.gif`), and 30 frames (`output.gif`).
+- The Machine Learning and Computer Vision landing READMEs and all four project READMEs were checked in GitHub's rendered view; every embedded result asset loaded with nonzero natural dimensions.
+- Display equations use GitHub math blocks to preserve matrix rows and norm notation.
+- No instructor-provided source code, assignment notebooks, model weights, or dataset files were uploaded.
+- PR #2 remains a draft and is not merged.
