@@ -30,6 +30,18 @@ The three passing tests are notebook-reported, not an independently rerun test s
 
 ## Visual presentation
 
-The three original GIFs are retained in the private evidence archive pending permission to publish the underlying photographs and course assets. Their existence is verified; the animations are not silently replaced with stock examples.
+### Recorded morph
+
+![Original morphing animation](assets/output.gif)
+
+### Custom morph 1
+
+![First custom morphing animation](assets/custom1.gif)
+
+### Custom morph 2
+
+![Second custom morphing animation](assets/custom2.gif)
+
+The original GIFs retain all recorded animation frames. Source code, notebooks, and dataset files are excluded.
 
 [← Computer Vision](../README.md) · [Portfolio index](../../SHOWCASE.md)
