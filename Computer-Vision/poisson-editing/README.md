@@ -8,15 +8,19 @@ Edit an image by controlling its **spatial gradients**, rather than directly cop
 
 ## Mathematics
 
-Inside an editing region \(\Omega\), recover an image \(f\) from a chosen gradient field \(\mathbf v\), with destination boundary conditions:
+Inside an editing region $\Omega$, recover an image $f$ from a chosen gradient field $\mathbf v$, with destination boundary conditions:
 
-$$\underset{f}{\min}\int_\Omega\|\nabla f-\mathbf v\|^2\,d\mathbf x,\qquad f|_{\partial\Omega}=f^*|_{\partial\Omega}.$$
+$$
+\underset{f}{\min}\int_\Omega\|\nabla f-\mathbf v\|^2\,d\mathbf x,\qquad f|_{\partial\Omega}=f^*|_{\partial\Omega}.
+$$
 
 The Euler–Lagrange condition gives the Poisson equation:
 
-$$\Delta f=\nabla\cdot\mathbf v.$$
+$$
+\Delta f=\nabla\cdot\mathbf v.
+$$
 
-On a four-neighbor pixel grid, the reconstruction becomes a sparse linear system \(A\mathbf f=\mathbf b\).
+On a four-neighbor pixel grid, the reconstruction becomes a sparse linear system $A\mathbf f=\mathbf b$.
 
 ## Three recorded editing variants
 
