@@ -14,10 +14,6 @@
 <div class="controls"><div><label class="field" for="gx">World X (m)</label><input id="gx" type="number" step=".1"></div><div><label class="field" for="gy">World Y (m)</label><input id="gy" type="number" step=".1"></div></div><button id="setGoal" style="width:100%;margin-top:10px">Set selected robot goal</button>
 <div class="error" id="error"></div><h2>Scene legend</h2><p class="hint"><span class="swatch" style="background:#46d3b2"></span>Moving <span class="swatch" style="background:#ff8176"></span>Blocked / safety stop<br><span class="swatch" style="background:#85aeff"></span>Reached · Dashed line: goal vector</p><footer>3D rendering of 2D kinematics. No physics engine or global path planner. Collision and safety decisions remain in Atlas.</footer></aside></main>
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/controls/OrbitControls.js';
-</script>
-<script type="module">
 import * as THREE from 'https://esm.sh/three@0.164.1';
 import {OrbitControls} from 'https://esm.sh/three@0.164.1/examples/jsm/controls/OrbitControls.js';
 const $=id=>document.getElementById(id), canvas=$('view');
