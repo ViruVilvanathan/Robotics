@@ -8,13 +8,17 @@ Produce a continuous transition between two images by interpolating both the **s
 
 ## Mathematics
 
-Given corresponding landmarks \(\mathbf p_i^A,\mathbf p_i^B\), the intermediate shape at \(t\in[0,1]\) is
+Given corresponding landmarks $\mathbf p_i^A,\mathbf p_i^B$, the intermediate shape at $t\in[0,1]$ is
 
-$$\mathbf p_i(t)=(1-t)\mathbf p_i^A+t\mathbf p_i^B.$$
+$$
+\mathbf p_i(t)=(1-t)\mathbf p_i^A+t\mathbf p_i^B.
+$$
 
 Each corresponding triangle defines a piecewise affine warp. After warping both source images into the intermediate geometry, appearance is interpolated:
 
-$$I_t(\mathbf x)=(1-t)I_A(W_A^{-1}(\mathbf x,t))+tI_B(W_B^{-1}(\mathbf x,t)).$$
+$$
+I_t(\mathbf x)=(1-t)I_A(W_A^{-1}(\mathbf x,t))+tI_B(W_B^{-1}(\mathbf x,t)).
+$$
 
 This separates **geometric alignment** from **cross-dissolve**; blending without warping would produce ghosting rather than a shape transition.
 
