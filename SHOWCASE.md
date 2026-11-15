@@ -13,6 +13,6 @@ A results-first collection of selected technical work. **No course notebooks, st
 
 ### How to read these pages
 
-Each case study distinguishes **observed notebook results**, **mathematical formulation**, and **limitations**. Where no benchmark was recorded, no quantitative performance number is invented. The original source files and image assets remain in a private evidence archive pending course and dataset permission review.
+Each case study distinguishes **observed notebook results**, **mathematical formulation**, and **limitations**. Where no benchmark was recorded, no quantitative performance number is invented. The selected result images and GIFs are embedded in the area galleries and project pages. Original source files, assignment notebooks, and datasets remain excluded.
 
-**Status:** Showcase documentation only. Publication of assignment implementations and original course assets is deliberately excluded.
+**Status:** Results gallery with 12 original image/GIF assets and the recorded training-loss chart. Assignment implementations and instructor-provided code are excluded.
