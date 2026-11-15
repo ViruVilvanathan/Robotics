@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas · Mission Control</title>
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#e8eef8;background:#090f1c}*{box-sizing:border-box}body{margin:0}header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #27344b;background:#101b2c}h1{font-size:18px;margin:0;letter-spacing:.06em}small,.muted{color:#92a4bf}.tag{font-size:11px;color:#72dfca;letter-spacing:.16em}main{display:grid;grid-template-columns:minmax(0,1fr) 310px;height:calc(100vh - 64px)}#viewport{position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#192c43,#08101d)}#view{width:100%;height:100%;display:block}.overlay{position:absolute;top:18px;left:20px;background:#101a2bdc;border:1px solid #2c425a;border-radius:10px;padding:12px 16px;pointer-events:none;font-size:12px;line-height:1.8}.bottom{top:auto;bottom:20px}.panel{background:#101a2a;border-left:1px solid #29374e;padding:20px;overflow-y:auto}.panel h2{font-size:12px;letter-spacing:.16em;color:#95a9c5;margin:22px 0 14px}.panel h2:first-child{margin-top:0}.metric{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #26364b;font-size:13px}.value{font-variant-numeric:tabular-nums;color:#f4f8ff}button,select,input{background:#1a2a40;color:#edf4ff;border:1px solid #38506c;border-radius:7px;padding:10px;font:inherit}button{cursor:pointer}button:hover{background:#263d58}button.primary{background:#197d87;border-color:#27aeb4}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}select,input{width:100%}.field{display:block;font-size:12px;color:#aebfd6;margin:12px 0 5px}.status{font-weight:700}.moving{color:#70d9bc}.reached{color:#84b7ff}.blocked,.stopped_safety{color:#ff8e82}.error{color:#ff8e82;font-size:12px;min-height:20px;margin-top:12px}.hint{font-size:12px;color:#a8b9cd;line-height:1.6}.swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}footer{font-size:11px;color:#738ba6;margin-top:20px}@media(max-width:800px){main{grid-template-columns:1fr;height:auto}#viewport{height:58vh}.panel{border-left:0;border-top:1px solid #29374e}}
+</style></head><body>
+<header><div><div class="tag">ATLAS / SIMULATION SYSTEM</div><h1>Mission Control <span class="muted">/ 3D Viewer</span></h1></div><small id="connection">Connecting…</small></header>
+<main><section id="viewport"><canvas id="view"></canvas><div class="overlay">WORLD <span id="worldSize">—</span><br>TIME <span id="time">0.0</span> s<br>ROBOTS <span id="count">—</span></div><div class="overlay bottom">Orbit: drag · Zoom: scroll · Pan: right-drag<br>Shift + click floor: assign selected robot goal</div></section>
+<aside class="panel"><h2>Simulation control</h2><div class="controls"><button class="primary" id="play">▶ Run</button><button id="step">Step +1</button><button id="reset">↺ Reset</button><button id="camera">Reset camera</button></div>
+<div class="metric"><span class="muted">Fixed timestep</span><span class="value" id="dt">—</span></div><div class="metric"><span class="muted">Engine</span><span class="value">Atlas / Python</span></div>
+<h2>Robot inspector</h2><label class="field" for="robot">Selected agent</label><select id="robot"></select>
+<div class="metric"><span class="muted">Status</span><span id="status" class="status">—</span></div><div class="metric"><span class="muted">Position (m)</span><span class="value" id="position">—</span></div><div class="metric"><span class="muted">Heading</span><span class="value" id="heading">—</span></div><div class="metric"><span class="muted">Trajectory points</span><span class="value" id="trail">—</span></div><div class="metric"><span class="muted">Navigable path</span><span class="value" id="safety">—</span></div>
+<h2>Goal assignment</h2><p class="hint">Goal changes are validated by the Python map. Stopped robots require a reset before they can move again.</p>
+<div class="controls"><div><label class="field" for="gx">World X (m)</label><input id="gx" type="number" step=".1"></div><div><label class="field" for="gy">World Y (m)</label><input id="gy" type="number" step=".1"></div></div><button id="setGoal" style="width:100%;margin-top:10px">Set selected robot goal</button>
+<div class="error" id="error"></div><h2>Scene legend</h2><p class="hint"><span class="swatch" style="background:#46d3b2"></span>Moving <span class="swatch" style="background:#ff8176"></span>Blocked / safety stop<br><span class="swatch" style="background:#85aeff"></span>Reached · Dashed line: goal vector</p><footer>3D rendering of 2D kinematics. No physics engine or global path planner. Collision and safety decisions remain in Atlas.</footer></aside></main>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/controls/OrbitControls.js';
+</script>
+<script type="module">
+import * as THREE from 'https://esm.sh/three@0.164.1';
+import {OrbitControls} from 'https://esm.sh/three@0.164.1/examples/jsm/controls/OrbitControls.js';
+const $=id=>document.getElementById(id), canvas=$('view');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x0c1727);scene.fog=new THREE.Fog(0x0c1727,25,65);
+const camera=new THREE.PerspectiveCamera(48,1,.1,150);camera.position.set(12,15,15);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;
+const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.maxPolarAngle=Math.PI/2.05;controls.target.set(6,0,4.5);
+scene.add(new THREE.HemisphereLight(0xa7d5ff,0x253343,2));
+const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.position.set(7,18,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun);
+const worldGroup=new THREE.Group();scene.add(worldGroup);
+const mat=(color,roughness=.75)=>new THREE.MeshStandardMaterial({color,roughness,metalness:.12});
+const floorMat=mat(0x23364a),wallMat=mat(0x60758a),circleMat=mat(0x9b8292);
+let state=null,selected=null,running=false,busy=false,initialized=false;
+function dispose(group){for(const o of [...group.children]){group.remove(o);o.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material){const m=Array.isArray(n.material)?n.material:[n.material];m.forEach(x=>x.dispose())}})}}
+function cube(w,h,d,x,y,z,material){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;worldGroup.add(mesh);return mesh}
+function line(points,color,opacity=1){if(points.length<2)return;const geo=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(p[0],p[2]??.06,p[1])));const material=new THREE.LineBasicMaterial({color,transparent:opacity<1,opacity});worldGroup.add(new THREE.Line(geo,material))}
+function build(s){dispose(worldGroup);const w=s.map.width,h=s.map.height;
+cube(w,.12,h,w/2,-.11,h/2,floorMat);
+const grid=new THREE.GridHelper(Math.max(w,h),Math.ceil(Math.max(w,h)),0x46647c,0x30465a);grid.position.set(w/2,-.035,h/2);worldGroup.add(grid);
+for(const o of s.map.obstacles){if(o.type==='rectangle')cube(o.width,.95,o.height,o.x+o.width/2,.475,o.y+o.height/2,wallMat);
+else{const m=new THREE.Mesh(new THREE.CylinderGeometry(o.radius,o.radius,.95,36),circleMat);m.position.set(o.x,.475,o.y);m.castShadow=true;worldGroup.add(m)}}
+const palette=[0x4de0c2,0x79aaff,0xf9c976,0xd9a4ff,0xffab9d];
+s.robots.forEach((r,i)=>{const color=r.status==='moving'?palette[i%palette.length]:r.status==='reached'?0x85aeff:0xff8176;
+const body=new THREE.Mesh(new THREE.CylinderGeometry(r.radius,r.radius,.34,28),mat(color));body.position.set(r.x,.24,r.y);body.castShadow=true;worldGroup.add(body);
+const nose=new THREE.Mesh(new THREE.ConeGeometry(r.radius*.55,r.radius*1.4,3),mat(0xf3f8ff));nose.rotation.x=Math.PI/2;nose.rotation.z=-r.heading;nose.position.set(r.x+Math.cos(r.heading)*r.radius*.72,.3,r.y+Math.sin(r.heading)*r.radius*.72);worldGroup.add(nose);
+const goal=new THREE.Mesh(new THREE.TorusGeometry(.19,.035,8,28),new THREE.MeshBasicMaterial({color}));goal.rotation.x=Math.PI/2;goal.position.set(r.goal[0],.09,r.goal[1]);worldGroup.add(goal);
+line(r.trajectory,color,.75);line([[r.x,r.y],[r.goal[0],r.goal[1]]],color,.22);
+if(r.name===selected){const ring=new THREE.Mesh(new THREE.RingGeometry(r.radius*1.5,r.radius*1.65,40),new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(r.x,.06,r.y);worldGroup.add(ring)}
+});
+}
+function inspector(){if(!state)return;const r=state.robots.find(x=>x.name===selected);if(!r)return;
+$('status').textContent=r.status.replaceAll('_',' ');$('status').className='status '+r.status;
+$('position').textContent=r.x.toFixed(2)+', '+r.y.toFixed(2);$('heading').textContent=(r.heading*180/Math.PI).toFixed(1)+'°';$('trail').textContent=r.trajectory.length;$('safety').textContent=r.safety.navigable_path?'CLEAR':'FAULT';
+if(document.activeElement!==$('gx'))$('gx').value=r.goal[0].toFixed(2);if(document.activeElement!==$('gy'))$('gy').value=r.goal[1].toFixed(2)}
+function display(s){state=s;if(!selected||!s.robots.some(r=>r.name===selected))selected=s.robots[0]?.name||null;
+const select=$('robot'),names=s.robots.map(r=>r.name).join('|');if(select.dataset.names!==names){select.dataset.names=names;select.innerHTML='';s.robots.forEach(r=>{const o=document.createElement('option');o.value=r.name;o.textContent=r.name;select.append(o)})}select.value=selected;
+$('worldSize').textContent=s.map.width+' × '+s.map.height+' m';$('time').textContent=s.time.toFixed(2);$('count').textContent=s.robots.length;$('dt').textContent=s.dt+' s';$('connection').textContent='● ENGINE CONNECTED';
+if(!initialized){controls.target.set(s.map.width/2,0,s.map.height/2);camera.position.set(s.map.width*.95,Math.max(s.map.width,s.map.height)*1.2,s.map.height*1.65);initialized=true}
+build(s);inspector()}
+async function api(path,data){const options=data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)};const response=await fetch(path,options);const body=await response.json();if(!response.ok)throw Error(body.error||'Request failed');return body}
+async function action(path,data){if(busy)return;busy=true;try{$('error').textContent='';display(await api(path,data))}catch(e){$('error').textContent=e.message;running=false;updateButton()}finally{busy=false}}
+function updateButton(){$('play').textContent=running?'Ⅱ Pause':'▶ Run'}
+$('play').onclick=()=>{running=!running;updateButton()};$('step').onclick=()=>{running=false;updateButton();action('/api/step',{steps:1})};
+$('reset').onclick=()=>{running=false;updateButton();action('/api/reset',{})};
+$('camera').onclick=()=>{if(state){controls.target.set(state.map.width/2,0,state.map.height/2);camera.position.set(state.map.width*.95,Math.max(state.map.width,state.map.height)*1.2,state.map.height*1.65)}};
+$('robot').onchange=e=>{selected=e.target.value;display(state)};
+$('setGoal').onclick=()=>action('/api/goal',{name:selected,x:Number($('gx').value),y:Number($('gy').value)});
+const raycaster=new THREE.Raycaster(),mouse=new THREE.Vector2(),ground=new THREE.Plane(new THREE.Vector3(0,1,0),0),hit=new THREE.Vector3();
+canvas.addEventListener('pointerup',e=>{if(!e.shiftKey||!state||!selected)return;const rect=canvas.getBoundingClientRect();mouse.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(mouse,camera);if(raycaster.ray.intersectPlane(ground,hit))action('/api/goal',{name:selected,x:hit.x,y:hit.z})});
+function resize(){const rect=canvas.getBoundingClientRect();camera.aspect=rect.width/Math.max(1,rect.height);camera.updateProjectionMatrix();renderer.setSize(rect.width,rect.height,false)}new ResizeObserver(resize).observe(canvas);resize();
+let last=0;function frame(now){requestAnimationFrame(frame);controls.update();renderer.render(scene,camera);if(running&&!busy&&now-last>100){last=now;action('/api/step',{steps:1})}}requestAnimationFrame(frame);
+action('/api/state');
+</script></body></html>
