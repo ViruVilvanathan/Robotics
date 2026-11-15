@@ -57,3 +57,17 @@ Each agent owns its own `MachineManager`, safety state and pose. A blocked step 
 ## Next milestones
 
 Grid maps/occupancy maps, A*/RRT path planning, dynamic obstacles, synchronized robot arbitration, sensor observations, event logs and replay, ROS 2 adapter, and later a Peekabot observation adapter. Keep external perception pipelines separate from world dynamics.
+
+## 3D mission-control UI (experimental)
+
+From the `Atlas` directory, after installing the package as above:
+
+```bash
+python -m atlas.sim.web --config examples/two_robots.json
+```
+
+Open **http://127.0.0.1:8765** in a desktop browser. The viewer provides orbit/zoom/pan, robot selection, start/pause, single-step, reset, trajectories, obstacle geometry, goal markers, state and safety inspection, and new goals for **currently moving** robots (enter coordinates or Shift-click the floor). This viewer needs an internet connection to load Three.js modules from a CDN; the simulation itself runs locally in Python. It is a 3D rendering of **planar kinematics**, not a 3D physics engine.
+
+The Python `SimulationWorld` is authoritative: the UI reads `/api/state`, invokes `/api/step`, and never computes robot motion or collision outcomes in JavaScript. Collision-stopped and completed robots cannot be restarted by assigning a new goal; reset the world. The interface intentionally does not promise obstacle avoidance or dynamic replanning.
+
+**Verification:** `python -m pytest -v` includes adapter serialization and simulation-state tests. Run the UI locally to confirm browser rendering, interaction and CDN availability; these are not established by unit tests alone. The local HTTP server binds to loopback by default; do not expose it on an untrusted network.
