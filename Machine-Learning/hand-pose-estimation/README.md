@@ -36,13 +36,27 @@ The validation curve is not monotonic; the lowest recorded validation loss occur
 
 The notebook printed Euclidean pixel errors for **four visible joints on one selected test example**: **1.4 px, 2.2 px, 3.0 px, and 1.0 px** (joint indices 0, 8, 12, 16). Their arithmetic mean is **1.9 px for these four selected joints only**. This is **not** an aggregate test-set score or a validated model benchmark. Two other queried joints had no printed error in that sample.
 
+## Visual results
+
+### Input and annotated example
+
+![Hand-pose example from the recorded notebook](assets/handpose_cell21_0.webp)
+
+### Ground truth and model prediction
+
+| Ground truth | Prediction |
+|---|---|
+| ![Ground truth hand keypoints](assets/handpose_cell22_0.webp) | ![Predicted hand keypoints](assets/handpose_cell22_1.webp) |
+
+These selected qualitative examples complement the recorded loss curve; they do not establish aggregate test-set accuracy.
+
 ## Interpretation and limitations
 
 - The loss improvement documents optimization progress, not a 33.3% increase in pose accuracy.
 - Dataset annotations may contain missing or imperfect labels, as noted in the project material.
 - The reported sample errors do not establish performance across subjects, activities, or the full test split.
 - No independently verified PCK, normalized keypoint error, or end-to-end hand detection score is available from the inspected artifacts.
-- Original dataset imagery, instructor scaffolding, and solution code are intentionally omitted pending publication permissions.
+- Only the selected result figures are shown. Instructor scaffolding, source code, notebooks, model weights, and dataset files are excluded.
 
 ## Provenance
 
