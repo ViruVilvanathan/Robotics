@@ -10,15 +10,15 @@ Use point correspondences to estimate a planar projective mapping and apply it t
 
 A homography maps points in homogeneous coordinates:
 
-$$
+```math
 \lambda\begin{bmatrix}x'\\y'\\1\end{bmatrix}=H\begin{bmatrix}x\\y\\1\end{bmatrix},\qquad H\in\mathbb R^{3\times3}.
-$$
+```
 
 Because scale is arbitrary, $H$ has eight degrees of freedom. At least four nondegenerate point correspondences are needed for a direct estimate. Reprojection error is a natural evaluation quantity:
 
-$$
+```math
 e_i=\left\|\mathbf x'_i-\pi(H\tilde{\mathbf x}_i)\right\|_2.
-$$
+```
 
 Here $\pi$ denotes homogeneous normalization. The notebook demonstrates correspondence visualization, image stitching, and perspective correction; **no aggregate reprojection-error measurement is recorded** in the supplied artifacts.
 
