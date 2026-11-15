@@ -1,6 +1,6 @@
 # Showcase Verification Record
 
-**Scope:** Results-only Markdown and an SVG chart. No Python implementation, assignment notebook, instructor helper code, pretrained weights, or original datasets included.
+**Scope:** Results-only Markdown, an SVG chart, and 12 original PNG/WebP/GIF result assets. No Python implementation, assignment notebook, instructor helper code, pretrained weights, or original datasets included.
 
 | Check | Finding |
 |---|---|
@@ -12,7 +12,7 @@
 | Poisson | Three supplied output images: cloned, mixed, flatten |
 | Homography | Three supplied output images; one earlier interrupted notebook cell |
 | Performance metrics not present | PCK/MPJPE, PSNR/SSIM, aggregate reprojection error, morph frame rate |
-| Academic release | Original assignment code, datasets, and image artifacts excluded pending instructor/asset permissions |
+| Publication scope | Selected result images and animations published as requested; assignment code, notebooks, instructor helpers, model weights, and dataset files excluded |
 | ML coursework beyond hand pose | CIS 5200 complete submitted source and results not yet audited; no invented projects added |
 
-**Review caveat:** SVG chart plots values extracted from the executed notebook. This documentation does not claim an independent training run or a browser-rendered screenshot review. Source publication remains a separate permission decision.
+**Review caveat:** SVG chart plots values extracted from the executed notebook. This documentation does not claim an independent training run. All six gallery/project READMEs were reviewed in GitHub's browser-rendered view on November 15, 2026. All embedded images loaded successfully, the three GIFs loaded in GitHub's animation viewer, and all 12 uploaded binary assets match the ZIP originals by Git blob hash. See `GALLERY_ASSETS_MANIFEST.md` for the asset inventory.
